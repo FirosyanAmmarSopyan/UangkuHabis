@@ -12,8 +12,14 @@ app.use(express.static('public'))
 app.use(express.urlencoded({extended : false})) 
 
 app.get('/' , Controller.landingPage)
-app.use('/login' , loginRoutes)
 app.use('/register' , registerRoutes)
+app.use('/login' , loginRoutes)
+
+app.use((req, res, next) => {
+  console.log('Time:', Date.now())
+  next()
+})
+
 app.use('/buyer' , buyerRoutes )
 app.use('/seller' , sellerRoutes )
 

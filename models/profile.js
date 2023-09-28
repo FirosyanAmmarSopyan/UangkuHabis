@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Profile extends Model {
     /**
@@ -11,17 +9,50 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Profile.belongsTo(models.User)
+      Profile.belongsTo(models.User);
     }
   }
-  Profile.init({
-    name: DataTypes.STRING,
-    birthOfDate: DataTypes.DATE,
-    gender: DataTypes.STRING,
-    UserId: DataTypes.INTEGER
-  }, {
-    sequelize,
-    modelName: 'Profile',
-  });
+  Profile.init(
+    {
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: {
+            msg: "Nama Gaboleh Kosong bwang",
+          },
+          notNull : 
+          { msg: "Nama Gaboleh Kosong bwang" },
+        }
+      },
+      birthOfDate: {
+        type : DataTypes.DATE,
+        allowNull: false,
+        validate: {
+          notEmpty: {
+            msg: "Tanggal Lahir Gaboleh Kosong bwang",
+          },
+          notNull : 
+          { msg: "Tanggal Lahir Gaboleh Kosong bwang" },
+        }
+      },
+      gender:{
+        type : DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: {
+            msg: "Gender Gaboleh Kosong bwang",
+          },
+          notNull : 
+          { msg: "Gender Gaboleh Kosong bwang" },
+        }
+      },
+      UserId: DataTypes.INTEGER,
+    },
+    {
+      sequelize,
+      modelName: "Profile",
+    }
+  );
   return Profile;
 };

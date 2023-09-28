@@ -9,7 +9,6 @@ class Controller {
     }
 
     static renderLogin(req , res){
-      console.log(req.query,`<<< RENDER LOGIN REQ QUERY`)
       const error = req.query.error
       res.render('loginPage', {error})
     }
@@ -25,17 +24,16 @@ class Controller {
         console.log(data)
         if(data){
           const isValidPassword = bcrypt.compareSync(password, data.password)
-          console.log(isValidPassword,`isTRUEEE????`)
-          const error = 'password or name is invalid'
           if(isValidPassword){
-            res.redirect('/buyer/home')
+            return res.redirect('/buyer/home')
           }else{
-            res.redirect(`/login?error=${error}`)
+            const error = 'password or name is invalid'
+            return res.redirect(`/login?error=${error}`)
           }
         }else{
-
-        }
-        
+          const error = 'password or name is invalid'
+          return res.redirect(`/login?error=${error}`)
+        }        
       })
       .catch(err => res.send(err))
     }
@@ -54,7 +52,16 @@ class Controller {
       .then(() => {
         res.redirect('/login')
       })
-      .catch(err => res.send(err))
+      .catch(err => {
+        if (err.name === "SequelizeValidationError") {
+          const errors = err.errors.map((el) => el.message)
+          res.render('registerPage', { errors, roleError: errors[0], usernameError: errors[1], passwordError: errors[2] });
+
+          // res.send(errors)
+        } else {
+          res.send(err);
+        }
+      });
     }
 
     static renderBuyerHome(req , res){

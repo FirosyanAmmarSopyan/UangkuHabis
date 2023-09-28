@@ -17,11 +17,38 @@ module.exports = (sequelize, DataTypes) => {
   }
   User.init({
     username: {
-      type : DataTypes.STRING,
-      allowNull : false
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: "username Gaboleh Kosong bwang",
+        },
+        notNull : 
+        { msg: "Username Gaboleh Kosong bwang" },
+      }
     },
-    password: DataTypes.STRING,
-    roles: DataTypes.STRING
+    password:{
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: "password Gaboleh Kosong bwang",
+        },
+        notNull : 
+        { msg: "password Gaboleh Kosong bwang" },
+      }
+    },
+    roles: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: "Roles Gaboleh Kosong bwang",
+        },
+        notNull : 
+        { msg: "Roles Gaboleh Kosong bwang" },
+      }
+    }
   }, {
     hooks: {
       beforeCreate: (instance) => {
