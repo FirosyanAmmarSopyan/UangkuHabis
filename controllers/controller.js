@@ -20,11 +20,11 @@ class Controller {
           username
         }
       })
-      .then(data => {
-        console.log(data)
-        if(data){
-          const isValidPassword = bcrypt.compareSync(password, data.password)
+      .then(user => {        
+        if(user){
+          const isValidPassword = bcrypt.compareSync(password, user.password)
           if(isValidPassword){
+            req.session.userId = user.id
             return res.redirect('/buyer/home')
           }else{
             const error = 'password or name is invalid'
@@ -106,6 +106,15 @@ class Controller {
 
     static renderHomeSeller(req , res) {
         res.render('sellerHomePage')
+    }
+
+    static logout(req, res){
+      req.session.destroy(err => {
+        if(err) res.send(err)
+        else{
+          res.redirect('/login')
+        }
+      })
     }
 }
 
