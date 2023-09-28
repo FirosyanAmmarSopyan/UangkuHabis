@@ -1,0 +1,66 @@
+[
+    {
+      "name": "Product 1",
+      "description": "Best selling product",
+      "price": 1000000,
+      "stock": "2",
+      "imageUrl": "https://www.baliya.id/gambar/280x280/Daster-Kekinian-Model-Moza-Motif-Akar-(1).jpg",
+      "CategoryId" : 1
+    },
+    {
+      "name": "Product 2",
+      "description": "Highly recommended item",
+      "price": 3400000,
+      "stock": "1",
+      "imageUrl": "https://sampurasun.co.id/wp-content/uploads/2022/09/Daster-Lowo-Jumbo-Batik-Cap-Colet-Motif.jpg",
+      "CategoryId" : 1
+    },
+    {
+      "name": "Product 3",
+      "description": "Popular choice",
+      "price": 432000000,
+      "stock": "2",
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTK_93btyyYdja4inItP9K8h20KD_LJQigvyQ&usqp=CAU",
+      "CategoryId" : 1
+    },
+    {
+      "name": "Product 4",
+      "description": "Customer favorite",
+      "price": 1233333,
+      "stock": "2",
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiPglnIveim7WTCCncEu--pJrPVjtjKbC11g&usqp=CAU",
+      "CategoryId" : 1
+    },
+    {
+      "name": "Product 5",
+      "description": "Top rated item",
+      "price": 3000000,
+      "stock": "2",
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdeic8o5BpakPJAzxdIY7fHlaW3_X0VMf6Zg&usqp=CAU",
+      "CategoryId" : 1
+    },
+    {
+      "name": "Product 6",
+      "description": "Best value for money",
+      "price": 12300000,
+      "stock": "2",
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdeic8o5BpakPJAzxdIY7fHlaW3_X0VMf6Zg&usqp=CAU",
+      "CategoryId" : 1
+    },
+    {
+      "name": "Product 7",
+      "description": "Limited edition",
+      "price": 3499999,
+      "stock": "1",
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5vYKvL0bsHkLIjUAGdRpcBzmX3H6m-eyurg&usqp=CAU",
+      "CategoryId" : 2
+    },
+    {
+      "name": "Product 8",
+      "description": "Must-have item",
+      "price":3400000,
+      "stock": "2",
+      "imageUrl": "https://ik.trn.asia/uploads/2019/08/gucci-copy.jpg?tr=w-1080",
+      "CategoryId" : 2
+    }
+  ]

@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "username": "jaki",
+        "password": "jaki123",
+        "roles": "seller"
+    },
+    {
+        "id": 2,
+        "username": "teri",
+        "password": "teri321",  
+        "roles": "buyer"
+    },
+    {
+        "id": 3,
+        "username": "daki",
+        "password": "daki988",
+        "roles": "buyer"
+    },
+    {
+        "id": 4,
+        "username": "yakali",
+        "password": "yaiya123",
+        "roles": "seller"
+    },
+    {
+        "id": 5,
+        "username": "haha",
+        "password": "hihi2000",
+        "roles": "buyer"
+    }
+]

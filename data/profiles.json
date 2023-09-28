@@ -1,0 +1,32 @@
+[
+    {
+      "name": "Jaki",
+      "birthOfDate": "1990-05-15",
+      "gender": "Male",
+      "UserId": 1
+    },
+    {
+      "name": "Teri",
+      "birthOfDate": "1987-10-20",
+      "gender": "Female",
+      "UserId": 2
+    },
+    {
+      "name": "Daki",
+      "birthOfDate": "1995-03-28",
+      "gender": "Male",
+      "UserId": 3
+    },
+    {
+      "name": "Yakali",
+      "birthOfDate": "1992-07-05",
+      "gender": "Female",
+      "UserId": 4
+    },
+    {
+      "name": "Haha",
+      "birthOfDate": "1989-12-10",
+      "gender": "Male",
+      "UserId": 5
+    }
+  ]
