@@ -12,12 +12,12 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-   let data = JSON.parse(fs.readFileSync('./data/product.json' , "utf-8"))
+   let data = JSON.parse(fs.readFileSync('./data/categories.json' , "utf-8"))
    .map(el => {
     el.createdAt = el.updatedAt = new Date()
     return el
    })
-    return queryInterface.bulkInsert('Products' , data , {})
+    return queryInterface.bulkInsert('Categories' , data , {})
   },
 
    down (queryInterface, Sequelize) {
@@ -27,6 +27,6 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    return queryInterface.bulkInsert('Products' , null , {})
+    return queryInterface.bulkInsert('Categories' , null , {})
   }
 };

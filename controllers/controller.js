@@ -1,13 +1,43 @@
 const {Product , Category , Profile , Transaction , User , ProductTransaction} = require('../models/index')
 const changeRupiah = require('../helper/helper')
 const { Op  , sequelize} = require("sequelize");
+const bcrypt = require('bcryptjs')
+
 class Controller {
     static landingPage(req , res){
       res.render('index')  
     }
 
     static renderLogin(req , res){
-      res.render('loginPage')
+      console.log(req.query,`<<< RENDER LOGIN REQ QUERY`)
+      const error = req.query.error
+      res.render('loginPage', {error})
+    }
+
+    static handlerLogin(req , res){
+      const { username, password } = req.body
+      User.findOne({
+        where: {
+          username
+        }
+      })
+      .then(data => {
+        console.log(data)
+        if(data){
+          const isValidPassword = bcrypt.compareSync(password, data.password)
+          console.log(isValidPassword,`isTRUEEE????`)
+          const error = 'password or name is invalid'
+          if(isValidPassword){
+            res.redirect('/buyer/home')
+          }else{
+            res.redirect(`/login?error=${error}`)
+          }
+        }else{
+
+        }
+        
+      })
+      .catch(err => res.send(err))
     }
 
     static renderRegister(req , res){
@@ -15,7 +45,6 @@ class Controller {
     }
 
     static handlerRegister(req, res){
-      console.log(req.query)
       const { name, birthOfDate, gender, username, password, roles } = req.body
       User.create({username, password, roles})      
       .then((data) => {
