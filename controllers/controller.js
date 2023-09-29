@@ -1,7 +1,9 @@
 const {Product , Category , Profile , Transaction , User , ProductTransaction} = require('../models/index')
-const changeRupiah = require('../helper/helper')
+const { changeRupiah } = require('../helper/helper')
 const { Op  , sequelize} = require("sequelize");
 const bcrypt = require('bcryptjs')
+const easyinvoice = require('easyinvoice');
+const fs = require('fs');
 
 class Controller {
     static landingPage(req , res){
@@ -84,15 +86,59 @@ class Controller {
       })
       .catch((err) => res.send(err))
     }
+
     static renderTransaction(req , res){
       const id = req.params.id
-      console.log(req.query,`<<<QUERY`)
-      Product.findOne({where  : {id : id} })
+      Product.findOne({
+        where  : {id : id} })
       .then((data) => {
         res.render('BuyerTransaction' , {data , changeRupiah})
         // res.send(data)
       })
 
+    }
+
+    static handlerTransaction(req, res){
+      const ProductId = +req.params.id
+      const UserId = req.session.userId
+      const quantity = +req.body.quantity
+      const totalPrice = +req.body.price * +quantity
+      console.log(totalPrice)
+      let result
+      Transaction.create({quantity, totalPrice: totalPrice, UserId})
+      .then((data) => {
+        const TransactionId = data.id
+        return ProductTransaction.create({TransactionId, ProductId})
+      })
+      .then((data)=>{
+        const TransactionId = data.TransactionId
+        return Product.findOne({
+          include: {
+            model: Transaction,
+            where:{
+              id: TransactionId
+            }
+          },
+          where: {
+            id: data.ProductId
+          }
+        })
+      })
+      .then((data) => {        
+        result = data
+        return result.decrement('stock',{by: quantity})
+        // res.send(user)
+      })
+      .then(() => {        
+        return Profile.findByPk(UserId)
+      })
+      .then(user => {
+        // res.send(result)  
+        res.render('transactionProduct', { result, user })
+      })
+
+        
+      .catch(err => res.send(err))
     }
 
     static renderProfile(req , res){

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice</title>
+    
+    <script src="https://unpkg.com/easyinvoice/dist/easyinvoice.min.js"></script>
+</head>
+<body>
+    <h1>INVOICE</h1>
+    <h3>Terima kasih sudah berbelanja <%= user.name %></h3>
+    <button onclick="downloadInvoice()">Download Invoice</button>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Total Price + Tax 10%</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><%= result.name %></td>
+                <td><%= result.Transactions[0].quantity %></td>
+                <td><%= result.price %></td>
+                <td><%= (+result.price * +result.Transactions[0].quantity)*0.1 %></td>
+            </tr>
+        </tbody>
+    </table>
+    <button onclick="window.location.href='/buyer/home'">Mari habiskan uang lagi!</button>
+</body>
+    <script>
+        function downloadInvoice(){
+            //Import the library into your project
+            var data = {
+            // Customize enables you to provide your own templates
+            // Please review the documentation for instructions and examples
+            "customize": {
+                //  "template": fs.readFileSync('template.html', 'base64') // Must be base64 encoded html 
+            },
+            "images": {
+                // The logo on top of your invoice
+                "logo": "https://public.easyinvoice.cloud/img/logo_en_original.png",
+                // The invoice background
+                "background": "https://public.easyinvoice.cloud/img/watermark-draft.jpg"
+            },
+            // Your own data
+            "sender": {
+                "company": "Uangku Habis",
+                "address": "Alamatku bukan alamatmu",
+                "zip": "666",
+                "city": "City of Hero",
+                "country": "Bikini Bottom"
+                //"custom1": "custom value 1",
+                //"custom2": "custom value 2",
+                //"custom3": "custom value 3"
+            },
+            // Your recipient
+            "client": {
+                "customer": "<%= user.name %>",
+                "Birth Of Date": "<%= user.birthOfDate %>",
+                "Gender": "<%= user.gender %>",
+            },
+            "information": {
+                // Invoice number
+                "number": "<%= result.Transactions[0].id %> - <%= result.id %><%= result.Transactions[0].createdAt %> %>",
+                // Invoice data
+                "date": "<%= result.Transactions[0].createdAt %>",
+                // Invoice due date
+
+            },
+            // The products you would like to see on y  our invoice
+            // Total values are being calculated automatically
+            "products": [
+                {
+                    "product-name": "<%= result.name %>",
+                    "quantity": "<%= result.Transactions[0].quantity %>",
+                    "description": "<%= result.description %>",
+                    "tax-rate": 10,
+                    "price": "<%= +result.price * +result.Transactions[0].quantity %>"
+                }
+            ],
+            // The message you would like to display on the bottom of your invoice
+            "bottom-notice": "Terima kasih sudah berbelanja di UangkuHabis. Uangmu habis, Uangku bertambah!",
+            // Settings to customize your invoice
+            "settings": {
+                "currency": "IDR", // See documentation 'Locales and Currency' for more info. Leave empty for no currency.
+                // "locale": "nl-NL", // Defaults to en-US, used for number formatting (See documentation 'Locales and Currency')        
+                // "margin-top": 25, // Defaults to '25'
+                // "margin-right": 25, // Defaults to '25'
+                // "margin-left": 25, // Defaults to '25'
+                // "margin-bottom": 25, // Defaults to '25'
+                // "format": "A4", // Defaults to A4, options: A3, A4, A5, Legal, Letter, Tabloid
+                // "height": "1000px", // allowed units: mm, cm, in, px
+                // "width": "500px", // allowed units: mm, cm, in, px
+                // "orientation": "landscape", // portrait or landscape, defaults to portrait
+            },
+            // Translate your invoice to your preferred language
+            "translate": {
+                // "invoice": "FACTUUR",  // Default to 'INVOICE'
+                // "number": "Nummer", // Defaults to 'Number'
+                // "date": "Datum", // Default to 'Date'
+                // "due-date": "Verloopdatum", // Defaults to 'Due Date'
+                // "subtotal": "Subtotaal", // Defaults to 'Subtotal'
+                // "products": "Producten", // Defaults to 'Products'
+                // "quantity": "Aantal", // Default to 'Quantity'
+                // "price": "Prijs", // Defaults to 'Price'
+                // "product-total": "Totaal", // Defaults to 'Total'
+                // "total": "Totaal", // Defaults to 'Total'
+                // "vat": "btw" // Defaults to 'vat'
+            },
+        };
+
+        //Create your invoice! Easy!
+        easyinvoice.createInvoice(data, function (result) {
+            //The response will contain a base64 encoded PDF file
+            console.log('PDF base64 string: ', result.pdf);
+            easyinvoice.download('invoice.pdf')
+        });
+        }
+    </script>
+</html>

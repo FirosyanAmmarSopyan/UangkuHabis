@@ -73,7 +73,7 @@
     <div style="margin-top: 100px">
       <div class="container">
         <div class="d-flex flex-row flex-wrap">
-          <img src="<%= data.imageURL %>" alt="..." class="img-thumbnail" />
+          <img src="<%= data.imageUrl %>" alt="..." class="img-thumbnail" />
           <div
             class=""
             style="padding-left: 20px; font-family: Poppins, sans-serif"
@@ -83,10 +83,11 @@
             <p>stock tersedia : <%= data.stock %></p>
             <h2>Harga : <%= changeRupiah(data.price) %></h2>
             <div style="margin-top: 20px">
-              <form action="">
+              <form action="" method="post">
                 <label for="">quantity</label>
                 <input type="number" name="quantity" id="quantity">
-                <label for="">Total Harga</label>                
+                <label for="">Total Harga</label>    
+                <input type="number" name="price"  value="<%= data.price %>" hidden>            
                 <input disabled type="number" value="" id="totalHarga" name="totalPrice">
                 <div id="quantityError" style="color: red;"></div>
                 <input type="submit" value="BUY">

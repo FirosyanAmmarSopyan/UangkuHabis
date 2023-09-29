@@ -6,4 +6,27 @@ function changeRupiah(price){
     return `${rupiah.format(price)}`
 }
 
-module.exports = changeRupiah
+function createInvoice(data) {
+    easyinvoice.createInvoice(data, function(result) {
+      document.getElementById('invoiceBase64').innerText = result.pdf;
+      /* console.log(result.pdf); */
+    });
+  }
+  
+  function downloadInvoice(data) {
+    easyinvoice.createInvoice(data, function(result) {
+      easyinvoice.download('myInvoice.pdf', result.pdf);
+      //	you can download like this as well:
+      //	easyinvoice.download();
+      //	easyinvoice.download('myInvoice.pdf');
+    });
+  }
+  
+  function renderInvoice(data){
+    document.getElementById("pdf").innerHTML = "loading...";
+    easyinvoice.createInvoice(data, function(result) {
+      easyinvoice.render('pdf', result.pdf);
+    });
+  }
+
+module.exports = { changeRupiah, createInvoice, downloadInvoice, renderInvoice }

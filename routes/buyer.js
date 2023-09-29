@@ -3,7 +3,6 @@ const buyerRoutes = express.Router()
 const Controller = require('../controllers/controller')
 
 buyerRoutes.use((req, res, next) => {
-    console.log(req.session, `<<<<< INI SESSION`)
     if(req.session.userId){
         next()
     }else{
@@ -16,5 +15,6 @@ buyerRoutes.use((req, res, next) => {
 buyerRoutes.get('/home' , Controller.renderBuyerHome)
 buyerRoutes.get('/profile/:id' , Controller.renderProfile)
 buyerRoutes.get('/transaction/:id' , Controller.renderTransaction)
+buyerRoutes.post('/transaction/:id' , Controller.handlerTransaction)
 
 module.exports = buyerRoutes 

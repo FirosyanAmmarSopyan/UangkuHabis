@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Transaction.belongsTo(models.User)
       Transaction.belongsToMany(models.Product, {through: models.ProductTransaction})
     }
     
@@ -19,8 +20,14 @@ module.exports = (sequelize, DataTypes) => {
   Transaction.init({
     date: DataTypes.DATE,
     quantity: DataTypes.INTEGER,
-    UserId: DataTypes.INTEGER
+    UserId: DataTypes.INTEGER,
+    totalPrice: DataTypes.INTEGER
   }, {
+    hooks: {
+      beforeCreate(instance) {
+        instance.date = new Date()
+      }
+    },
     sequelize,
     modelName: 'Transaction',
   });
