@@ -41,7 +41,12 @@ class Controller {
     }
 
     static renderRegister(req , res){
-      res.render('registerPage')
+      let {errors} = req.query
+      if (errors) {
+        errors = errors.split(',')
+      }
+     res.render('registerPage' , {errors})
+     // res.send(errors)
     }
 
     static handlerRegister(req, res){
@@ -57,9 +62,7 @@ class Controller {
       .catch(err => {
         if (err.name === "SequelizeValidationError") {
           const errors = err.errors.map((el) => el.message)
-          res.render('registerPage', { errors, roleError: errors[0], usernameError: errors[1], passwordError: errors[2] });
-
-          // res.send(errors)
+          res.redirect(`/register?errors=${errors}`)
         } else {
           res.send(err);
         }
@@ -134,7 +137,7 @@ class Controller {
       })
       .then(user => {
         // res.send(result)  
-        res.render('transactionProduct', { result, user })
+        res.render('transactionProduct', { result, user , changeRupiah })
       })
 
         

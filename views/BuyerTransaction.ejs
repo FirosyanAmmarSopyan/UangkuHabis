@@ -130,7 +130,7 @@
       const hargaPerItem = '<%= data.price %>'// Replace with your actual price per item
       const totalHarga = isNaN(quantity) ? 0 : quantity * hargaPerItem;
       if (quantity > '<%= data.stock%>') {
-        quantityError.textContent = "BRO WAKTU GUA MEPET GAUSAH DI TEST BUG LAHH ANNJJJJ , YANG BENER AJA KALI";
+        quantityError.textContent = "BRO WAKTU GUA MEPET GAUSAH DI TEST BUG LAHH -_- , YANG BENER AJA KALI";
         quantityInput.value = '<%= data.stock%>'
         return;
       }

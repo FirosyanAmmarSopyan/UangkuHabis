@@ -1,18 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invoice</title>
-    
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <link href="/assets/vendor/aos/aos.css" rel="stylesheet" />
+    <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
+    <link href="/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet" />
+    <link href="/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;1,100;1,200;1,400&display=swap"
+        rel="stylesheet" />
+    <link href="/assets/vendor/remixicon/remixicon.css" rel="stylesheet" />
+    <link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
     <script src="https://unpkg.com/easyinvoice/dist/easyinvoice.min.js"></script>
+
 </head>
+
 <body>
-    <h1>INVOICE</h1>
-    <h3>Terima kasih sudah berbelanja <%= user.name %></h3>
-    <button onclick="downloadInvoice()">Download Invoice</button>
-    <table border="1">
-        <thead>
+    <!-- ======= Header ======= -->
+
+    <!-- As a heading -->
+    <nav class="navbar navbar-light" style="
+              background-color: rgb(108, 125, 226);
+              display: flex;
+              flex-direction: row;
+              justify-content: space-between;
+            ">
+        <a href="/buyer/home">
+            <span class="navbar-brand mb-4 h1" style="
+                font-size: 40px;
+                color: white;
+                margin-left: 20px;
+                text-align: center;
+              ">UangkuHabis</span>
+        </a>
+        <div class="d-flex flex-row">
+            <button type="button" style="margin-right: 20px" class="btn btn-outline-light"
+                onclick="window.location.href='/logout'">
+                Logout
+            </button>
+        </div>
+    </nav>
+    <h1 class="mx-auto" style="width: max-content;">INVOICE</h1>
+    <h3 class="mx-auto" style="width: max-content;">Terima kasih sudah berbelanja <%= user.name %>
+    </h3>
+    <!-- <button onclick="downloadInvoice()">Download Invoice</button> -->
+    <!-- <table class="mx-auto" style="margin-top: 20px; margin-bottom: 20px ; width: max-content;" border="1"> -->
+    <table class="table-dark table table-bordered mx-auto" style="width: max-content;">
+        <thead class="thead-dark">
             <tr>
                 <th>Product Name</th>
                 <th>Quantity</th>
@@ -22,19 +65,32 @@
         </thead>
         <tbody>
             <tr>
-                <td><%= result.name %></td>
-                <td><%= result.Transactions[0].quantity %></td>
-                <td><%= result.price %></td>
-                <td><%= (+result.price * +result.Transactions[0].quantity)*0.1 %></td>
+                <td>
+                    <%= result.name %>
+                </td>
+                <td>
+                    <%= result.Transactions[0].quantity %>
+                </td>
+                <td>
+                    <%= changeRupiah(result.price) %>
+                </td>
+                <td>
+                    <%= changeRupiah((+result.price * +result.Transactions[0].quantity) + ((+result.price *
+                        +result.Transactions[0].quantity) * 10/100)) %>
+                </td>
             </tr>
         </tbody>
     </table>
-    <button onclick="window.location.href='/buyer/home'">Mari habiskan uang lagi!</button>
+    <div class="mx-auto" style="width: max-content;">
+
+        <button type="button" onclick="downloadInvoice()" class="btn btn-secondary">Download Invoice</button>
+        <button onclick="window.location.href='/buyer/home'">Mari habiskan uang lagi!</button>
+    </div>
 </body>
-    <script>
-        function downloadInvoice(){
-            //Import the library into your project
-            var data = {
+<script>
+    function downloadInvoice() {
+        //Import the library into your project
+        var data = {
             // Customize enables you to provide your own templates
             // Please review the documentation for instructions and examples
             "customize": {
@@ -65,19 +121,20 @@
             },
             "information": {
                 // Invoice number
-                "number": "<%= result.Transactions[0].id %> - <%= result.id %><%= result.Transactions[0].createdAt %> %>",
+                "number": "<%= result.Transactions[0].id %> - <%= result.id %>",
                 // Invoice data
-                "date": "<%= result.Transactions[0].createdAt %>",
+                "date": "<%= result.Transactions[0].formattedDate %>",
                 // Invoice due date
+                'due-date': '-'
 
             },
             // The products you would like to see on y  our invoice
             // Total values are being calculated automatically
             "products": [
                 {
-                    "product-name": "<%= result.name %>",
+
                     "quantity": "<%= result.Transactions[0].quantity %>",
-                    "description": "<%= result.description %>",
+                    "description": "<%= result.name %>",
                     "tax-rate": 10,
                     "price": "<%= +result.price * +result.Transactions[0].quantity %>"
                 }
@@ -119,6 +176,7 @@
             console.log('PDF base64 string: ', result.pdf);
             easyinvoice.download('invoice.pdf')
         });
-        }
-    </script>
+    }
+</script>
+
 </html>

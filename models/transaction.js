@@ -14,6 +14,10 @@ module.exports = (sequelize, DataTypes) => {
       Transaction.belongsTo(models.User)
       Transaction.belongsToMany(models.Product, {through: models.ProductTransaction})
     }
+
+    get formattedDate(){
+      return this.date.toISOString().split('T')[0]
+    }
     
   
   }
